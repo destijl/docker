@@ -75,5 +75,11 @@ RUN ln -s /opt/msf/msf* /usr/local/bin
 VOLUME /root/.msf4/
 VOLUME /tmp/data/
 
+# Work around git config expectations
+# https://github.com/rapid7/metasploit-framework/issues/8472
+RUN git config --global user.name "noone" && \
+git config --global user.email "email@example.com"
+
 # Starting script (DB + updates)
+ADD scripts/init.sh /usr/local/bin/init.sh
 CMD /usr/local/bin/init.sh
