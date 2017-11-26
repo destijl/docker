@@ -38,9 +38,7 @@ RUN apt-get update && apt-get -y install \
   && rm -rf /var/lib/apt/lists/*
 
 # startup script and tmux configuration file
-RUN curl -sSL https://github.com/REMnux/docker/raw/master/metasploit/scripts/init.sh --output /usr/local/bin/init.sh && \
-  chmod a+xr /usr/local/bin/init.sh && \
-  curl -sSL https://github.com/REMnux/docker/raw/master/metasploit/conf/tmux.conf --output /root/.tmux.conf
+RUN curl -sSL https://github.com/REMnux/docker/raw/master/metasploit/conf/tmux.conf --output /root/.tmux.conf
 
 # Get Metasploit
 RUN git clone https://github.com/rapid7/metasploit-framework.git msf
@@ -83,3 +81,6 @@ git config --global user.email "email@example.com"
 # Starting script (DB + updates)
 ADD scripts/init.sh /usr/local/bin/init.sh
 CMD /usr/local/bin/init.sh
+
+RUN echo source /usr/local/rvm/scripts/rvm >> /root/.bashrc
+EXPOSE 443
